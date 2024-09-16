@@ -19,13 +19,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
-
       - name: Install dependencies
         run: |
           pip3 install molecule docker ansible
