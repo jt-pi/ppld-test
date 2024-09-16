@@ -23,8 +23,6 @@ jobs:
         run: |
           pip3 install molecule docker ansible
 
-      - name: Set workdir to role
-        run: cd roles/web_server
-
       - name: Run Molecule tests
         run: molecule test
+          working-directory: ./roles/web_server
