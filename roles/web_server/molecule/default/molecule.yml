@@ -1,0 +1,15 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: docker-test
+    image: "python:3.13.0rc2-bookworm"
+    pre_build_image: true 
+provisioner:
+  name: ansible
+  # options:
+  #   remote_tmp: /tmp/.ansible/tmp 
+verifier:
+  name: ansible

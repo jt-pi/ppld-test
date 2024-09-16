@@ -1,0 +1,18 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check if the service is running
+      uri:
+        url: 'http://localhost'
+        return_content: no
+        status_code:
+          - 200
+          - -1
+      register: uri_output
+    - name: Check if web service is running
+      ansible.builtin.assert:
+        that: uri_output.status == 200

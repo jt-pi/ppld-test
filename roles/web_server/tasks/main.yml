@@ -1,0 +1,36 @@
+- name: Update apt package cache
+  apt:
+    update_cache: yes
+
+- name: Install python
+  apt:
+    name:
+      - python3
+    state: present
+
+- name: Create folder from where webpages will be served
+  file:
+    path: /var/www/html
+    state: directory
+    
+- name: Copy custom webpage files
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+    mode: 0644
+
+- name: Check if the service is running
+  uri:
+    url: 'http://localhost'
+    return_content: no
+    status_code:
+      - 200
+      - -1
+  register: uri_output
+  
+- name: Run simple http service
+  shell: "nohup python3 -m http.server 80 > /dev/null 2>&1 &"
+  args:
+    chdir: /var/www/html
+  when: uri_output.status != 200
+  
