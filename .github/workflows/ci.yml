@@ -9,6 +9,10 @@ jobs:
   test:
     name: molecule-test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./roles/web_server
 
     steps:
       - name: Checkout code
@@ -25,4 +29,3 @@ jobs:
 
       - name: Run Molecule tests
         run: molecule test
-          working-directory: ./roles/web_server
